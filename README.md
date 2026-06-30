@@ -1,74 +1,79 @@
 # aruaru
 
-`aruaru` は、アプリ・Webサイト開発、運用、DB、AI支援、品質ゲートを統合するための構想リポジトリです。
+**aruaru** is an open-source AI-native development platform for building, deploying, learning, and managing Web, Desktop, Mobile, and infrastructure applications with cost-aware AI routing and strict quality gates.
 
-現時点では、まず設計書・役割分担・中心モジュールの境界を整理し、GitHub に push できる最小構成としてまとめています。
+日本語では、aruaru は **Web・Desktop・Mobileアプリ開発、VPS運用、AI開発支援、学習、資格模擬試験、デプロイ自動化** を統合するオープンソース基盤です。
 
-## 中心構成
+## Mission
+
+- Make app and website development easier, safer, cheaper, and more enjoyable.
+- Provide a second Cursor / second Claude / second ChatGPT / second Grok style development assistant as open-source software.
+- Provide a second KUSANAGI style VPS and HTTPS automation platform for beginners and experts.
+- Support low-spec PCs, old Windows machines, and users who cannot afford expensive GPU workstations.
+
+## Product Structure
 
 ```text
 aruaru
-├─ aruaru-core       # AIを使わない中心機能プラグイン群
-├─ aruaru-ai-core    # AIを伴う中心機能プラグイン群 / aruaru-ai の中核AI制御基盤
-├─ aruaru-ai         # 利用者向けAI機能・AI操作画面
-└─ docs              # 設計書・仕様書
+├─ aruaru-core          # Non-AI core plugins
+├─ aruaru-ai-core       # AI-related core plugins and AI routing
+├─ aruaru-web           # Web platform; includes aruaru-ai
+├─ aruaru-desktop       # Desktop app with Windows installer target
+├─ aruaru-mobile        # Mobile app target for Android / iPhone
+├─ aruaru-db            # PostgreSQL + aruaru-db + distributed DB concepts
+├─ aruaru-sftp          # SFTP / SSH / deployment automation
+├─ aruaru-learning      # English, exams, data science, game-style learning
+├─ aruaru-cert          # Mock exam certificates
+└─ docs                 # Architecture and design documents
 ```
 
-## aruaru-core
+## Key Ideas
 
-`aruaru-core` は、AIを使わない aruaru 関連の中心的な機能プラグインの集合です。
+- **aruaru-core**: central non-AI plugin set.
+- **aruaru-ai-core**: central AI plugin set and the AI control layer for aruaru-ai.
+- **aruaru-web**: main Web product. aruaru-ai is included inside aruaru-web.
+- **aruaru-sftp**: upload and deploy apps to rental VPS servers through SFTP / SSH.
+- **Second KUSANAGI function**: domain, subdomain, HTTPS, certificate renewal, and health reporting automation.
+- **AI model selection**: auto or manual selection among ChatGPT, Claude Opus, Grok, Gemini, DeepSeek, Qwen, local LLM, and aruaru-llm.
+- **Cost-aware AI routing**: use cheaper AI first, then high-end AI only when needed.
+- **Quality gate**: AI output is not trusted blindly. Build, test, security, and regression checks must pass.
 
-対象例:
+## MVP Scope
 
-- 設定管理
-- プラグイン管理
-- ログ管理
-- プロジェクト管理
-- 品質ゲート実行基盤
-- Git連携
-- DB接続管理
-- バックアップ管理
-- HTTPS / ドメイン管理
-- CLI / GUI 共通基盤
+MVP v0.1 focuses on:
 
-## aruaru-ai-core
+- aruaru-web boot screen
+- project registration
+- AI manual selection
+- simple AI auto-selection
+- hardware diagnosis
+- SFTP connection settings
+- server directory creation
+- simple file upload
+- domain / subdomain registration design
+- HTTPS monitoring design
+- PostgreSQL connection design
 
-`aruaru-ai-core` は、aruaru 関連の中心的な機能プラグインのうち、AIを伴うものの集合であり、`aruaru-ai` の中核AI制御基盤です。
+## Low-Spec PC Policy
 
-主な役割:
+The project is intentionally designed for low-spec PCs. The founder is currently developing from a difficult financial situation and still uses a GT730-class PC. Therefore, aruaru must not assume an expensive GPU workstation. Heavy AI processing should be routed to external AI, cloud AI, server AI, or lightweight local models when appropriate.
 
-- 利用者の依頼内容解析
-- AI自動選択
-- AI手動選択
-- 複数AI比較
-- 公式Docs / GitHub / API情報の自動クロール
-- AIごとの強み・弱み・メリット・デメリット更新
-- BUG修正成功率 / コンパイル成功率 / ユーザー評価の蓄積
-- 品質ゲートを通過した結果だけを aruaru-ai へ返す
+## Development Stack
 
-## aruaru-ai
+```text
+Backend:       Rust + Poem
+Frontend:      TypeScript + HTML5 + CSS3
+Graph/API:     WunderGraph Cosmo + Versionless API
+Database:      PostgreSQL + aruaru-db concept
+Desktop:       Windows installer target, later macOS/Linux
+Mobile:        Android / iPhone target
+Deployment:    SFTP / SSH / VPS automation
+```
 
-`aruaru-ai` は、利用者が実際に操作するAI機能・AI画面・AIアシスタント層です。
+## Documentation
 
-`aruaru-ai-core` がAI選択や品質判定を行い、`aruaru-ai` はその結果を利用者へわかりやすく提示します。
+See [`docs/README.md`](docs/README.md).
 
-## 開発方針
+## Repository Status
 
-- Rust + Poem を重要候補とする
-- Tauri と REST API は基本仕様から外す
-- JavaScript ではなく TypeScript を使用する
-- WunderGraph Cosmo を REST API の代替として扱う
-- PostgreSQL 連携を重視する
-- aruaru-db 独自DB、分散DB、VersionlessAPI、移植変換、分散自動バックアップ、Git型DB履歴を構想に含める
-- AIの出力をそのまま信じず、品質ゲートを必ず通す
-
-## 現在の状態
-
-このリポジトリは初期設計段階です。
-まずは設計思想、モジュール境界、今後の実装方針を整理しています。
-
-## 個人的背景
-
-このプロジェクトは、まだ十分な開発資金や高性能PCがない状態から始めています。現時点では生活が厳しく、PCも GT 730 搭載環境のままですが、その制約を前提に、低コスト・省メモリ・段階的に成長できる開発基盤を目指します。
-
-そのため、最初から重い構成にせず、古いPCでも扱える軽量な設計、ローカルLLMとクラウドAIの併用、必要に応じた段階的拡張を重視します。
+This repository is currently in the design and MVP planning stage.

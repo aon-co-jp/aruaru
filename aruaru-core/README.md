@@ -1,26 +1,5 @@
 # aruaru-core
 
-`aruaru-core` は、AIを使わない aruaru 関連の中心的な機能プラグインの集合です。
+Non-AI core plugins for configuration, security, logging, monitoring, database routing, backup, and common runtime services.
 
-## 役割
-
-- 設定管理
-- プラグイン管理
-- ログ管理
-- プロジェクト管理
-- Git連携
-- DB接続管理
-- バックアップ管理
-- 品質ゲート実行基盤
-- HTTPS / ドメイン管理
-- CLI / GUI 共通基盤
-
-## 入れてはいけないもの
-
-- AIモデル選択
-- AIプロンプト制御
-- AI評価
-- AIクロール
-- AI回答生成
-
-これらは `aruaru-ai-core` に入れます。
+Status: design / MVP planning.

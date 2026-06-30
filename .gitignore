@@ -1,25 +1,9 @@
-# OS
+/target/
+/node_modules/
+/dist/
+/.env
+/.env.*
+!.env.example
+*.log
 .DS_Store
 Thumbs.db
-
-# Editor
-.vscode/
-.idea/
-
-# Logs
-*.log
-logs/
-
-# Build outputs
-target/
-dist/
-build/
-node_modules/
-
-# Env
-.env
-.env.*
-
-# Temporary files
-*.tmp
-*.bak
