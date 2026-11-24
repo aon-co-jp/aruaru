@@ -1,3 +1,5 @@
+> Latest translations / 翻訳の最新版: [0-LATEST-TRANSLATIONS.md](0-LATEST-TRANSLATIONS.md)
+
 # aruaru
 
 **aruaru** is an open-source AI-native development platform for building, deploying, learning, and managing Web, Desktop, Mobile, and infrastructure applications with cost-aware AI routing and strict quality gates.
